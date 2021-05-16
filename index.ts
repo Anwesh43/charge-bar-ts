@@ -1,7 +1,7 @@
 const w : number = window.innerWidth 
 const h : number = window.innerHeight
 const bars : number = 3 
-const parts : number = 3 
+const parts : number = 4
 const scGap : number = 0.02 / 3 
 const strokeFactor : number = 90 
 const barWFactor : number = 6.2 
@@ -42,17 +42,18 @@ class DrawingUtil {
         const sf1 : number = ScaleUtil.divideScale(sf, 0, parts)
         const sf2 : number = ScaleUtil.divideScale(sf, 1, parts)
         const sf3 : number = ScaleUtil.divideScale(sf, 2, parts)
+        const sf4 : number = ScaleUtil.divideScale(sf, 3, parts)
         const gap : number = barW / bars 
         context.save()
         context.translate(w / 2, h / 2)
-        context.strokeRect(-barW / 2, -barH / 2, barW * sf1, barH)
-        context.fillRect(barW / 2, -smallBarSize / 2, smallBarSize * sf2, smallBarSize)
+        context.strokeRect(-barW / 2, -barH / 2, barW * sf2, barH * sf1)
+        context.fillRect(barW / 2, -smallBarSize / 2, smallBarSize * sf3, smallBarSize)
         for (var j = 0; j < bars; j++) {
-            const size : number = gap - gap * sFactor 
-            const x : number = -barW / 2 + gap * j + gap * 0.1
+            const size : number = gap - gap * 0.2
+            const x : number = -barW / 2 + gap * j + gap * 0.2
             context.save()
             context.translate(x, -barH / 2)
-            context.fillRect(0, 0, gap, barH * sf3)
+            context.fillRect(0, 0, size, barH * sf4)
             context.restore()
         }
         context.restore()
