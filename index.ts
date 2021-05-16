@@ -206,3 +206,25 @@ class ChangeBar {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    cb : ChangeBar = new ChangeBar()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.cb.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.cb.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.cb.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
